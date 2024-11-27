@@ -1,0 +1,35 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_PORT}:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/pyproject.toml:/app/pyproject.toml
+      - uploads:/app/uploads
+      - debug:/app/debug
+    environment:
+      - UPLOAD_DIR=/app/uploads
+      - DEBUG_DIR=/app/debug
+      - MAX_FILE_SIZE=104857600
+      - CHUNK_SIZE=1048576
+      - CORS_ORIGINS=http://${HOST_IP}:${FRONTEND_PORT}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:80"
+    depends_on:
+      - api
+    environment:
+      - VITE_API_URL=http://${HOST_IP}:${BACKEND_PORT}
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  debug: 
