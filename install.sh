@@ -26,12 +26,18 @@ chmod +x scripts/clone-repos.sh
 
 # Obtém o IP do Raspberry Pi
 IP=$(hostname -I | awk '{print $1}')
+BACKEND_PORT=8000
 
-# Cria ou atualiza o arquivo .env
-echo "Configurando variáveis de ambiente..."
+# Cria ou atualiza o arquivo .env do deploy
+echo "Configurando variáveis de ambiente do deploy..."
 echo "HOST_IP=$IP" > .env
 echo "FRONTEND_PORT=3000" >> .env
-echo "BACKEND_PORT=8000" >> .env
+echo "BACKEND_PORT=$BACKEND_PORT" >> .env
+
+# Cria ou atualiza o arquivo .env do frontend
+echo "Configurando variáveis de ambiente do frontend..."
+echo "VITE_API_BASE_URL=http://$IP:$BACKEND_PORT/api/v1" > frontend/.env
+echo "VITE_WS_URL=ws://$IP:$BACKEND_PORT/api/v1/ws/metadata" >> frontend/.env
 
 # Inicia os containers usando docker compose
 echo "Iniciando containers..."
