@@ -1,13 +1,13 @@
 services:
   api:
     build:
-      context: ./backend
+      context: ../backend
       dockerfile: Dockerfile
     ports:
       - "${BACKEND_PORT}:8000"
     volumes:
-      - ./backend/app:/app/app
-      - ./backend/pyproject.toml:/app/pyproject.toml
+      - ../backend/app:/app/app
+      - ../backend/pyproject.toml:/app/pyproject.toml
       - uploads:/app/uploads
       - debug:/app/debug
     environment:
@@ -20,7 +20,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ../frontend
       dockerfile: Dockerfile
     ports:
       - "${FRONTEND_PORT}:80"
