@@ -24,8 +24,30 @@ echo "Clonando/atualizando repositórios..."
 chmod +x scripts/clone-repos.sh
 ./scripts/clone-repos.sh
 
-# Obtém o IP do Raspberry Pi
-IP=$(hostname -I | awk '{print $1}')
+# Função para obter IP baseado no sistema operacional
+get_ip() {
+    case "$(uname -s)" in
+        Darwin*)    # Mac OS X
+            IP=$(ipconfig getifaddr en0 || ipconfig getifaddr en1)
+            ;;
+        Linux*)     # Linux (Raspberry Pi)
+            IP=$(hostname -I | cut -d' ' -f1)
+            ;;
+        *)
+            echo "Sistema operacional não suportado"
+            exit 1
+            ;;
+    esac
+    echo $IP
+}
+
+# Obtém o IP
+IP=$(get_ip)
+if [ -z "$IP" ]; then
+    echo "Erro: Não foi possível obter o IP"
+    exit 1
+fi
+
 BACKEND_PORT=8000
 
 # Cria ou atualiza o arquivo .env do deploy
@@ -36,9 +58,15 @@ echo "BACKEND_PORT=$BACKEND_PORT" >> .env
 
 # Cria ou atualiza o arquivo .env do frontend
 echo "Configurando variáveis de ambiente do frontend..."
-touch frontend/.env
-echo "VITE_API_BASE_URL=http://$IP:$BACKEND_PORT/api/v1" > frontend/.env
-echo "VITE_WS_URL=ws://$IP:$BACKEND_PORT/api/v1/ws/metadata" >> frontend/.env
+# Certifica-se que o diretório frontend existe
+if [ ! -d "../frontend" ]; then
+    echo "Erro: Diretório frontend não encontrado"
+    exit 1
+fi
+
+# Cria o arquivo .env no frontend
+echo "VITE_API_BASE_URL=http://$IP:$BACKEND_PORT/api/v1" > ../frontend/.env
+echo "VITE_WS_URL=ws://$IP:$BACKEND_PORT/api/v1/ws/metadata" >> ../frontend/.env
 
 # Inicia os containers usando docker compose
 echo "Iniciando containers..."
