@@ -36,6 +36,7 @@ echo "BACKEND_PORT=$BACKEND_PORT" >> .env
 
 # Cria ou atualiza o arquivo .env do frontend
 echo "Configurando variáveis de ambiente do frontend..."
+touch frontend/.env
 echo "VITE_API_BASE_URL=http://$IP:$BACKEND_PORT/api/v1" > frontend/.env
 echo "VITE_WS_URL=ws://$IP:$BACKEND_PORT/api/v1/ws/metadata" >> frontend/.env
 
