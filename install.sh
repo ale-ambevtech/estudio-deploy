@@ -58,6 +58,7 @@ echo "BACKEND_PORT=$BACKEND_PORT" >> .env
 
 # Cria ou atualiza o arquivo .env do frontend
 echo "Configurando variáveis de ambiente do frontend..."
+<<<<<<< HEAD
 # Certifica-se que o diretório frontend existe
 if [ ! -d "../frontend" ]; then
     echo "Erro: Diretório frontend não encontrado"
@@ -65,6 +66,8 @@ if [ ! -d "../frontend" ]; then
 fi
 
 # Cria o arquivo .env no frontend
+=======
+>>>>>>> 303c2c4 (fix: install)
 echo "VITE_API_BASE_URL=http://$IP:$BACKEND_PORT/api/v1" > ../frontend/.env
 echo "VITE_WS_URL=ws://$IP:$BACKEND_PORT/api/v1/ws/metadata" >> ../frontend/.env
 
