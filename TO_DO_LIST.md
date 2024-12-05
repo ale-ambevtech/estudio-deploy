@@ -29,5 +29,10 @@ O **Estúdio de Papelão** é uma aplicação desenvolvida para criar e testar p
   - medir distância entre objetos
 
 - gabarito:
+
   - segmentação de cor:
     - feedback visual de seleção do gabarito (botão ativo) e escurecimento da tela (estilo crop do ppdi)
+
+- multiusuário:
+  - gestão de vídeos
+  - controle de sessão
