@@ -1,0 +1,31 @@
+services:
+  backend:
+    image: 192.168.68.136:5000/estudio-backend:latest
+    platform: linux/arm64
+    ports:
+      - "8001:8000"
+    volumes:
+      - uploads:/app/uploads
+      - debug:/app/debug
+    environment:
+      - UPLOAD_DIR=/app/uploads
+      - DEBUG_DIR=/app/debug
+      - MAX_FILE_SIZE=104857600
+      - CHUNK_SIZE=1048576
+      - CORS_ORIGINS=http://localhost:3000
+    restart: unless-stopped
+
+  frontend:
+    image: 192.168.68.136:5000/estudio-frontend:latest
+    platform: linux/arm64
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8001
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  debug:
