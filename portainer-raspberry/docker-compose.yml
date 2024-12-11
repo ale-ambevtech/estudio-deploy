@@ -1,9 +1,9 @@
 services:
   backend:
     image: 192.168.68.136:5000/estudio-backend:latest
-    platform: linux/arm64
+    platform: linux/arm/v8
     ports:
-      - "8001:8000"
+      - "${BACKEND_PORT}:8000"
     volumes:
       - uploads:/app/uploads
       - debug:/app/debug
@@ -12,20 +12,28 @@ services:
       - DEBUG_DIR=/app/debug
       - MAX_FILE_SIZE=104857600
       - CHUNK_SIZE=1048576
-      - CORS_ORIGINS=http://localhost:3000
+      - CORS_ORIGINS=http://${HOST_IP}:${FRONTEND_PORT}
     restart: unless-stopped
 
   frontend:
     image: 192.168.68.136:5000/estudio-frontend:latest
-    platform: linux/arm64
+    platform: linux/arm/v8
     ports:
-      - "3000:80"
+      - "${FRONTEND_PORT}:80"
     depends_on:
       - backend
     environment:
-      - VITE_API_URL=http://localhost:8001
+      - VITE_API_URL=http://${HOST_IP}:${BACKEND_PORT}
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
     restart: unless-stopped
 
 volumes:
   uploads:
   debug:
+
