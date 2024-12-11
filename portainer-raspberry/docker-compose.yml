@@ -1,6 +1,6 @@
 services:
   backend:
-    image: 192.168.68.136:5000/estudio-backend:latest
+    image: ${REGISTRY_IP}:5000/estudio-backend:latest
     platform: linux/arm/v8
     ports:
       - "${BACKEND_PORT}:8000"
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: 192.168.68.136:5000/estudio-frontend:latest
+    image: ${REGISTRY_IP}:5000/estudio-frontend:latest
     platform: linux/arm/v8
     ports:
       - "${FRONTEND_PORT}:80"
