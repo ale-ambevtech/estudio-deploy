@@ -34,5 +34,12 @@ O **Estúdio de Papelão** é uma aplicação desenvolvida para criar e testar p
     - feedback visual de seleção do gabarito (botão ativo) e escurecimento da tela (estilo crop do ppdi)
 
 - multiusuário:
+
   - gestão de vídeos
   - controle de sessão
+
+- id único de vídeo (backend)
+
+# Bugs:
+
+- clique no botão de ir pro fim do vídeo está crashando o app
