@@ -24,12 +24,13 @@ if [ -z "$IP" ]; then
     exit 1
 fi
 
-BACKEND_PORT=8001
+BACKEND_PORT=8123
+FRONTEND_PORT=3000
 
 # Cria ou atualiza o arquivo .env do deploy
 echo "Configurando variáveis de ambiente do deploy..."
 echo "HOST_IP=$IP" > .env
-echo "FRONTEND_PORT=3000" >> .env
+echo "FRONTEND_PORT=$FRONTEND_PORT" >> .env
 echo "BACKEND_PORT=$BACKEND_PORT" >> .env
 
 # Cria ou atualiza o arquivo .env do frontend
@@ -61,4 +62,4 @@ echo "CORS_ORIGINS=*" >> ../backend/.env
 echo "Configuração de ambiente concluída!"
 echo "IP configurado: $IP"
 echo "Porta do backend: $BACKEND_PORT"
-echo "Porta do frontend: 3000" 
+echo "Porta do frontend: $FRONTEND_PORT" 
