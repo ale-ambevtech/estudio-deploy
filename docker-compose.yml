@@ -4,7 +4,7 @@ services:
       context: ../backend
       dockerfile: Dockerfile
     ports:
-      - "${BACKEND_PORT}:8000"
+      - "${BACKEND_PORT}:8123"
     volumes:
       - ../backend/app:/app/app
       - ../backend/pyproject.toml:/app/pyproject.toml

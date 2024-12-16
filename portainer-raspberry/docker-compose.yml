@@ -1,9 +1,9 @@
 services:
   backend:
-    image: ${REGISTRY_IP}:5000/estudio-backend:latest
+    image: ${REGISTRY_IP}:${REGISTRY_PORT}/estudio-backend:latest
     platform: linux/arm/v8
     ports:
-      - "${BACKEND_PORT}:8000"
+      - "${BACKEND_PORT}:8123"
     volumes:
       - uploads:/app/uploads
       - debug:/app/debug
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: ${REGISTRY_IP}:5000/estudio-frontend:latest
+    image: ${REGISTRY_IP}:${REGISTRY_PORT}/estudio-frontend:latest
     platform: linux/arm/v8
     ports:
       - "${FRONTEND_PORT}:80"

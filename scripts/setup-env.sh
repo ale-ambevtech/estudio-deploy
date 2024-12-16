@@ -58,6 +58,7 @@ echo "DEBUG_DIR=debug" >> ../backend/.env
 echo "MAX_FILE_SIZE=104857600" >> ../backend/.env
 echo "CHUNK_SIZE=1048576" >> ../backend/.env
 echo "CORS_ORIGINS=*" >> ../backend/.env
+echo "PORT=8123" >> ../backend/.env
 
 echo "Configuração de ambiente concluída!"
 echo "IP configurado: $IP"
