@@ -20,3 +20,5 @@ Devido ao Frame Sync, precisamos que o vídeo no front e backend sejam o mesmo. 
 Algo comum de acontecer é o vídeo descarregar do backend mas ainda sim se manter no localstorage do frontend, pois foi desenvolvida uma lógica para manter o vídeo e parâmetros (marca'ões, timeline, configs) mesmo em caso de recarregamento de página.
 Então utilizamos o ID (hash único) do vídeo para verificar se o mesmo ainda existe no Backend. Caso não exista, o backend busca no blob storage se o vídeo armazenado tem o mesmo ID e carrega ele novamente.
 Caso não exista no blob storage, o usuário será notificado e o vídeo será removido do localstorage do frontend, avisando que o vídeo não existe mais.
+
+gerar o ID no front e back BASE 64 utilizando o nome do video e data de criação e/ou última alteração.
